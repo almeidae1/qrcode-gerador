@@ -6,8 +6,8 @@
 <title>Gerador de QR Code e Código de Barras</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="./js/JsBarcode.all.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/JsBarcode/3.11.5/JsBarcode.all.min.js"></script>
 <style>
   :root{
     --bg:#0B1E30;
@@ -529,39 +529,22 @@
     render();
   }
 
-  function renderQR() {
-    const text = contentEl.value.trim() || " ";
+  function renderQR(){
+    const text = contentEl.value.trim() || ' ';
     const size = parseInt(sizeEl.value, 10);
     const level = levelEl.value;
     const dark = colorDarkEl.value;
     const light = colorLightEl.value;
 
-    // Limpa completamente o container
-    codeOutput.innerHTML = "";
-    codeOutput.style.background = "#fff";
-
-    // Remove instâncias antigas do QRCode
-    codeOutput.replaceChildren();
-
+    codeOutput.innerHTML = '';
     new QRCode(codeOutput, {
-        text: text,
-        width: size,
-        height: size,
-        colorDark: dark,
-        colorLight: light,
-        correctLevel: QRCode.CorrectLevel[level]
+      text: text,
+      width: size,
+      height: size,
+      colorDark: dark,
+      colorLight: light,
+      correctLevel: QRCode.CorrectLevel[level]
     });
-
-    sizeVal.textContent = size + " px";
-    dimLevel.textContent = level;
-    dimSize.textContent = size + "×" + size;
-
-    const specLevelEl = document.getElementById("specLevel");
-    const specCharsEl = document.getElementById("specChars");
-
-    if (specLevelEl) specLevelEl.textContent = level + " (" + levelMap[level] + ")";
-    if (specCharsEl) specCharsEl.textContent = contentEl.value.length;
-}
 
     sizeVal.textContent = size + ' px';
     dimLevel.textContent = level;
